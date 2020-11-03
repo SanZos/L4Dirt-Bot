@@ -1,7 +1,7 @@
 module.exports = {
     name: 'meteo',
-    usage: '[command name] <Ville> <CodePays>',
-    description: 'Donne la météo courante',
+    usage: '[command name] <Ville>',
+    description: 'Donne la météo courante dans la ville en argument (limité à la France pour le moment)',
     cooldown: 5,
     execute(message, args) {
         const http = require('http');
@@ -16,11 +16,8 @@ module.exports = {
 
         let url = "";
 
-        if (args.length == 1) {
-            url = `${apiURlCity}${encodeURIComponent(args[0])},fr${apiKeyUrl}&units=metric`;
-        } else if (args.length > 2) {
-            const lastArg = args.pop();
-            url = `${apiURlCity}${encodeURIComponent(args.join(' '))},${lastArg}${apiKeyUrl}&units=metric`;
+        if (args.length > 0) {
+            url = `${apiURlCity}${encodeURIComponent(args.join(' '))},fr${apiKeyUrl}&units=metric`;
         } else {
             message.channel.send(`Erreur dans la commande.`);
             return;
