@@ -5,7 +5,7 @@ module.exports = {
     cooldown: 5,
     execute(message, args) {
         const http = require('http');
-        const config = require('../config.json');
+        const config = require('../main').config;
         const weatherApiKey = process.env.DISCORD_WEATHER_KEY ? process.env.DISCORD_WEATHER_KEY : config().weatherApiKey;
         const apiKeyUrl = '&appid=' + weatherApiKey;
 
