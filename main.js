@@ -10,6 +10,7 @@ exports.config = config = function () {
 	if (fs.existsSync('./config.json')) {
 		config = require('./config.json');
 	} else {
+		config = {};
 		if (process.env.DISCORD_TOKEN) {
 			Object.assign(config.token, process.env.DISCORD_TOKEN);
 		}
