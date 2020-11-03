@@ -58,7 +58,7 @@ module.exports = {
 
                 console.log(meteoResponse);
                 const Discord = require('discord.js');
-                let richResponse = new Discord.RichEmbed();
+                let richResponse = new Discord.MessageEmbed();
 
                 if (isValide(meteoResponse)) {
                     richResponse.setTitle(meteoResponse.name);
