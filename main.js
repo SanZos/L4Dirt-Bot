@@ -7,13 +7,13 @@ const cooldowns = new Discord.Collection();
 module.id = 'main';
 
 const PORT = process.env.PORT || 5000;
-const server = http.createServer((req, res) => {
-	res.status(200).json({ alive: true });
-});
-server.on('clientError', (err, socket) => {
+http.createServer((req, res) => {
+	res.writeHead(200, { 'Content-Type': 'application/json' });
+	res.write(JSON.stringify({ isAlive: true, name: 'Left4Dirt-Bot' }));
+	res.end();
+}).on('clientError', (err, socket) => {
 	socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
-});
-server.listen(PORT);
+}).listen(PORT);
 
 exports.config = config = function () {
 	let _config;
