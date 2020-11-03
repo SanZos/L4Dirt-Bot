@@ -33,7 +33,7 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
 	console.log(`${client.user.username} est en ligne`);
-	client.user.setActivity('En test, ne pretez pas attention');
+	client.user.setActivity(`Live. Type ${config().prefix[0]}help for further info.`);
 	// client.user.setAvatar('./img/avatar.png')
 	// 	.then(() => console.log('Avatar mis en place avec succès'))
 	// 	.catch(console.error);
