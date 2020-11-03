@@ -1,9 +1,19 @@
+const http = require('http');
 const Discord = require('discord.js');
 const fs = require('fs');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 module.id = 'main';
+
+const PORT = process.env.PORT || 5000;
+const server = http.createServer((req, res) => {
+	res.end();
+});
+server.on('clientError', (err, socket) => {
+	socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+});
+server.listen(PORT);
 
 exports.config = config = function () {
 	let _config;
