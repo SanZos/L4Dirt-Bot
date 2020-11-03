@@ -14,9 +14,8 @@ module.exports = {
                     if (member.id !== message.author.id) {
                         member.voice.setMute(newState.selfMute);
                     } else {
-                        // message.channel.send(`Server ${newState.mute ? 'muted' : 'unmuted'}`);
-                        message.author.send(`Server ${newState.mute ? 'muted' : 'unmuted'}`, { tts: true })
-                            .then(_message => setTimeout(() => _message.delete(), 3000));
+                        message.channel.send(`Server ${newState.mute ? 'muted' : 'unmuted'}`, { tts: true })
+                            .then(_message => setTimeout(() => _message.delete(), 5000));
                     }
                 });
             }
