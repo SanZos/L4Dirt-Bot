@@ -6,22 +6,22 @@ const cooldowns = new Discord.Collection();
 module.id = 'main';
 
 exports.config = config = function () {
-	let config;
+	let _config;
 	if (fs.existsSync('./config.json')) {
-		config = require('./config.json');
+		_config = require('./config.json');
 	} else {
-		config = {};
+		_config = { token: '', prefix: [], weatherApiKey: '' };
 		if (process.env.DISCORD_TOKEN) {
-			Object.assign(config.token, process.env.DISCORD_TOKEN);
+			_config.token = process.env.DISCORD_TOKEN;
 		}
 		if (process.env.DISCORD_PREFIX) {
-			Object.assign(config.prefix, process.env.DISCORD_PREFIX);
+			_config.prefix = process.env.DISCORD_PREFIX;
 		}
 		if (process.env.DISCORD_WEATHER_KEY) {
-			Object.assign(config.weatherApiKey, process.env.DISCORD_WEATHER_KEY);
+			_config.weatherApiKey = process.env.DISCORD_WEATHER_KEY;
 		}
 	}
-	return config;
+	return _config;
 }
 
 const commandFiles = fs.readdirSync('./commands');
