@@ -6,7 +6,7 @@ module.exports = {
     execute(message, args) {
         const http = require('http');
         const config = require('../config.json');
-        const weatherApiKey = process.env.DISCORD_WEATHER_KEY ? process.env.DISCORD_WEATHER_KEY : config.weatherApiKey;
+        const weatherApiKey = process.env.DISCORD_WEATHER_KEY ? process.env.DISCORD_WEATHER_KEY : config().weatherApiKey;
         const apiKeyUrl = '&appid=' + weatherApiKey;
 
         // api.openweathermap.org/data/2.5/weather?q={city name},{country code}

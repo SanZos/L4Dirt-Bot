@@ -4,7 +4,7 @@ module.exports = {
 	name: 'muteall',
 	roles: '@admin',
 	description: 'Mute all people in voice channel of the command sender.',
-	usage: `${config.prefix}muteall`,
+	usage: `${config().prefix}muteall`,
 	execute(message) {
 		if (message.member.roles.highest.id !== message.guild.roles.highest.id) return;
 

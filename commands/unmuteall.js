@@ -4,7 +4,7 @@ module.exports = {
     name: 'unmuteall',
     roles: '@admin',
     description: 'Unmute all people in voice channel of the command sender.',
-    usage: `${config.prefix}unmuteall`,
+    usage: `${config().prefix}unmuteall`,
     execute(message) {
         if (message.member.roles.highest.id !== message.guild.roles.highest.id) return;
 

@@ -4,7 +4,7 @@ module.exports = {
     name: 'mimic',
     roles: '@admin',
     description: 'Mimic the command sender voice status for all people in voice channel.',
-    usage: `${config.prefix}mimic`,
+    usage: `${config().prefix}mimic`,
     execute(message) {
         if (message.member.roles.highest.id !== message.guild.roles.highest.id) return;
 

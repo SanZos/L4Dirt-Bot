@@ -13,7 +13,7 @@ module.exports = {
 		if (!args.length) {
 			data.push('Voilà une liste de toutes les commandes:');
 			data.push(commands.map(command => command.name).join(', '));
-			data.push(`\nVous pouvez envoyer \`${config.prefix}help [command name]\` pour avoir des infos sur une commande spécifique.`);
+			data.push(`\nVous pouvez envoyer \`${config().prefix}help [command name]\` pour avoir des infos sur une commande spécifique.`);
 		}
 		else {
 			if (!commands.has(args[0])) {
@@ -27,7 +27,7 @@ module.exports = {
 			if (command.roles) data.push(`**Roles:** ${command.roles.join(', ')}`);
 			if (command.description) data.push(`**Description:** ${command.description}`);
 			if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
-			if (command.usage) data.push(`**Utilisation:** ${config.prefix}${command.name} ${command.usage}`);
+			if (command.usage) data.push(`**Utilisation:** ${config().prefix}${command.name} ${command.usage}`);
 
 			data.push(`**Cooldown:** ${command.cooldown || 3} seconde(s)`);
 		}
