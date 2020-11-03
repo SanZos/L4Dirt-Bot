@@ -3,7 +3,20 @@ const fs = require('fs');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
-const { token, prefix } = require('./config.json');
+
+let token, prefix;
+if (fs.existsSync('./config.json')) {
+	const conf = require('./config.json');
+	token = conf.token;
+	prefix = conf.prefix;
+} else {
+	if (process.env.DISCORD_TOKEN) {
+		token = process.env.DISCORD_TOKEN;
+	}
+	if (process.env.DISCORD_PREFIX) {
+		token = process.env.DISCORD_PREFIX;
+	}
+}
 
 const commandFiles = fs.readdirSync('./commands');
 
