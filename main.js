@@ -3,19 +3,24 @@ const fs = require('fs');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
+module.id = 'main';
 
-let token, prefix;
-if (fs.existsSync('./config.json')) {
-	const conf = require('./config.json');
-	token = conf.token;
-	prefix = conf.prefix;
-} else {
-	if (process.env.DISCORD_TOKEN) {
-		token = process.env.DISCORD_TOKEN;
+exports.config = config = function () {
+	let config;
+	if (fs.existsSync('./config.json')) {
+		config = require('./config.json');
+	} else {
+		if (process.env.DISCORD_TOKEN) {
+			Object.assign(config.token, process.env.DISCORD_TOKEN);
+		}
+		if (process.env.DISCORD_PREFIX) {
+			Object.assign(config.prefix, process.env.DISCORD_PREFIX);
+		}
+		if (process.env.DISCORD_WEATHER_KEY) {
+			Object.assign(config.weatherApiKey, process.env.DISCORD_WEATHER_KEY);
+		}
 	}
-	if (process.env.DISCORD_PREFIX) {
-		token = process.env.DISCORD_PREFIX;
-	}
+	return config;
 }
 
 const commandFiles = fs.readdirSync('./commands');
@@ -44,7 +49,7 @@ client.on('message', (message) => {
 
 	let isACommand = false;
 	let usedPrefix = "";
-	for (const item of prefix) {
+	for (const item of config().prefix) {
 		if (message.content.startsWith(item)) {
 			isACommand = true;
 			usedPrefix = item;
@@ -112,4 +117,4 @@ client.on('guildMemberAdd', (member) => {
 	channel.send(`Bienvenu sur le serveur des Left4Dirt, ${member}`);
 });
 
-client.login(token);
+client.login(config().token);

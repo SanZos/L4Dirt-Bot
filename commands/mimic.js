@@ -1,18 +1,20 @@
-const { prefix } = require('../config.json');
+const config = require("../main").config;
 
 module.exports = {
     name: 'mimic',
     roles: '@admin',
     description: 'Mimic the command sender voice status for all people in voice channel.',
-    usage: `${prefix}mimic`,
+    usage: `${config.prefix}mimic`,
     execute(message) {
         if (message.member.roles.highest.id !== message.guild.roles.highest.id) return;
 
         const cb = (oldState, newState) => {
             if (message.author.id === oldState.id) {
-                const members = message.guild.channels.cache
+                const channel = message.guild.channels.cache
                     .filter(channel => channel.type === 'voice')
-                    .find(channel => channel.members.find(member => member.id === message.author.id)).members;
+                    .find(channel => channel.members.find(member => member.id === message.author.id));
+                if (channel === undefined) return;
+                const members = channel.members;
                 members.forEach(member => {
                     if (member.id !== message.author.id) {
                         member.voice.setMute(newState.selfMute);
