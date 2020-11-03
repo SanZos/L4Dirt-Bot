@@ -17,9 +17,10 @@ module.exports = {
         let url = "";
 
         if (args.length == 1) {
-            url = apiURlCity + args[0] + ",fr" + apiKeyUrl + "&units=metric";
-        } else if (args.length == 2) {
-            url = apiURlCity + args[0] + "," + args[1] + apiKeyUrl + "&units=metric";
+            url = `${apiURlCity}${encodeURIComponent(args[0])},fr${apiKeyUrl}&units=metric`;
+        } else if (args.length > 2) {
+            const lastArg = args.pop();
+            url = `${apiURlCity}${encodeURIComponent(args.join(' '))},${lastArg}${apiKeyUrl}&units=metric`;
         } else {
             message.channel.send(`Erreur dans la commande.`);
             return;
@@ -75,7 +76,7 @@ module.exports = {
                     if (meteoResponse.wind.speed)
                         richResponse.addField('Vent', meteoResponse.wind.speed + 'km/h, ' + meteoResponse.wind.deg + '°')
                     if (meteoResponse.clouds.all)
-                        richResponse.addField('Vent', meteoResponse.clouds.all + '%')
+                        richResponse.addField('Nuages', meteoResponse.clouds.all + '%')
                     if (meteoResponse.humidity)
                         richResponse.addField('Humidité', meteoResponse.humidity + '%')
                     if (meteoResponse.pressure)

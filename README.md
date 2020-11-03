@@ -21,7 +21,7 @@
 Commencer par un `npm install` pour telecharger les modules du package.json.
 Puis créer un fichier config.json en respectant le format de config.dummy.json.
 
-**Attention à ne pas commit les tokens discord, et clés api**, n'oubliera pas que le dépot git est public.
+**Attention à ne pas commit les tokens discord, et clés api**, n'oubliez pas que le dépot git est public.
 
 ## Fonctions
 

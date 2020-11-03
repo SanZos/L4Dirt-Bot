@@ -6,7 +6,7 @@ client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 module.id = 'main';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 http.createServer((req, res) => {
 	res.writeHead(200, { 'Content-Type': 'application/json' });
 	res.write(JSON.stringify({ isAlive: true, name: 'Left4Dirt-Bot' }));
