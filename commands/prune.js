@@ -1,8 +1,11 @@
 module.exports = {
 	name: 'prune',
+	roles: '@admin',
 	aliases: ['efface'],
 	description: 'Efface les derniers messages, jusqu\'au 99 messages précédents.',
 	execute(message, args) {
+        if (message.member.roles.highest.id !== message.guild.roles.highest.id) return;
+
 		const amount = parseInt(args[0]) + 1;
 
 		if (isNaN(amount)) {

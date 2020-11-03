@@ -12,7 +12,7 @@
 ## Requirements
 
 - discord.js
-- NodeJS 8+
+- NodeJS 12+
 - Un token discord bot
 - Une clé openweather
 
@@ -25,19 +25,22 @@ Puis créer un fichier config.json en respectant le format de config.dummy.json.
 
 ## Fonctions
 
-- [x] Connexion
-  - [x] Récupération du token depuis un fichier externe
-  - [x] Connexion
-  - [x] Changement d'avatar
-  - [x] Ping
-- [x] Météo
-  - [x] Récupération de la clé api depuis un fichier externe
-  - [x] Accès a l'api OpenWeather
+- [x] Connexion :
+  - [x] Récupération du token depuis un fichier externe.
+  - [x] Connexion.
+  - [x] Changement d'avatar.
+  - [x] Ping.
+- [x] Météo :
+  - [x] Récupération de la clé api depuis un fichier externe.
+  - [x] Accès a l'api OpenWeather.
+- [x] Vocal :
+  - [x] Un/Mute les membres du serveurs.
+  - [x] Mimique l'admin et son status de mute.
 
 ## TODO
 
 - Vérification des autorisations de l'appelant (sur les commandes nécéssitant d'être admin)
-- Persistance de donnée ? (->Calendrier avec événements par exemple?)
+- Persistance de donnée ? (-> Calendrier avec événements par exemple?)
 
 ## Utilisation
 

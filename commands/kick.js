@@ -2,6 +2,7 @@ module.exports = {
 	name: 'kick',
 	description: 'Fais semblant de kicker le membre marqué.',
 	guildOnly: true,
+	cooldown: 5,
 	execute(message) {
 		if (!message.mentions.users.size) {
 			return message.reply('Vous devez désigner un utilisateur pour pouvoir le kicker!');

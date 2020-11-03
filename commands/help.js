@@ -24,6 +24,7 @@ module.exports = {
 
 			data.push(`**Name:** ${command.name}`);
 
+			if (command.roles) data.push(`**Roles:** ${command.roles.join(', ')}`);
 			if (command.description) data.push(`**Description:** ${command.description}`);
 			if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
 			if (command.usage) data.push(`**Utilisation:** ${prefix}${command.name} ${command.usage}`);

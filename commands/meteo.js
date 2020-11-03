@@ -2,6 +2,7 @@ module.exports = {
     name: 'meteo',
     usage: '[command name] <Ville> <CodePays>',
     description: 'Donne la météo courante',
+    cooldown: 5,
     execute(message, args) {
         const http = require('http');
         const { weatherApiKey } = require('../config.json');

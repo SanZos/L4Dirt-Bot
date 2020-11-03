@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'args-info',
-	description: 'Information sur les arguments envoyés.',
+	description: '<TEST> Information sur les arguments envoyés.',
 	args: true,
 	usage: '<argument_1> <argument_2>',
 	execute(message, args) {
