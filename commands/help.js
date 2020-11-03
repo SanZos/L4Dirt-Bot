@@ -33,7 +33,7 @@ module.exports = {
 
 		message.author.send(data, { split: true }).then(() => {
 			if (message.channel.type !== 'dm') {
-				message.channel.send('Je vous ai envoyé un message privé avec toutes les comandes.');
+				message.channel.send(`${message.author.username}, je vous ai envoyé un message privé avec toutes les commandes.`);
 			}
 		})
 			.catch(() => message.reply('Il semble que je ne puisse pas vous envoyer de message privé'));

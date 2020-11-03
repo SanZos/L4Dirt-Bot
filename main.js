@@ -12,7 +12,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('ready', function () {
+client.on('ready', () => {
 	console.log(`${client.user.username} est en ligne`);
 	client.user.setActivity('En test, ne pretez pas attention');
 	// client.user.setAvatar('./img/avatar.png')
@@ -20,8 +20,12 @@ client.on('ready', function () {
 	// 	.catch(console.error);
 });
 
-client.on('message', function (message) {
-	console.log(`[${message.createdAt.toUTCString()}] - ${message.guild.name} - ${message.channel.name} - ${message.author.username}: ${message.content}`);
+client.on('message', (message) => {
+	try {
+		console.log(`[${message.createdAt.toUTCString()}]${message.guild ? ' - ' + message.guild.name : ''} - ${message.channel.name} - ${message.author.username}: ${message.content}`);
+	} catch (error) {
+		console.error(error);
+	}
 
 	if (message.author.bot) return;
 
@@ -68,8 +72,7 @@ client.on('message', function (message) {
 	if (!timestamps.has(message.author.id)) {
 		timestamps.set(message.author.id, now);
 		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-	}
-	else {
+	} else {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
 		if (now < expirationTime) {
@@ -83,14 +86,13 @@ client.on('message', function (message) {
 
 	try {
 		command.execute(message, args);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 		message.reply('Erreur dans l\'éxécution de la command!');
 	}
 });
 
-client.on('guildMemberAdd', function (member) {
+client.on('guildMemberAdd', (member) => {
 	const channel = member.guild.channels.find('name', 'member-log');
 
 	if (!channel) return;
@@ -98,19 +100,3 @@ client.on('guildMemberAdd', function (member) {
 });
 
 client.login(token);
-
-// Template de promesse
-
-/* function deleteMessages(amount) {
-	return new Promise((resolve) => {
-		if (amount > 10) throw new Error('You can\'t delete more than 10 Messages at a time.');
-		setTimeout(() => resolve('Deleted 10 messages.'), 2000);
-	});
-}
-deleteMessages(5).then(value => {
-	// `deleteMessages` is complete and has not encountered any errors
-	// the resolved value will be the string "Deleted 10 messages"
-}).catch(error => {
-	// `deleteMessages` encountered an error
-	// the error will be an Error Object
-}); */
