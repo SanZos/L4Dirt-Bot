@@ -20,7 +20,12 @@ exports.config = config = function () {
 	if (fs.existsSync('./config.json')) {
 		_config = require('./config.json');
 	} else {
-		_config = { token: '', prefix: [], weatherApiKey: '' };
+		_config = {
+			token: '', prefix: [
+				"!",
+				"?"
+			], weatherApiKey: ''
+		};
 		if (process.env.DISCORD_TOKEN) {
 			_config.token = process.env.DISCORD_TOKEN;
 		}
