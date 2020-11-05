@@ -1,5 +1,14 @@
-config.json
-node_modules/
+# IDE
 .vscode/
-.deployment
+
+# Depedencies
+node_modules/
+
+# Sources
 src/
+
+# Static
+.deployment
+.gitignore
+config.json
+tsconfig.json

@@ -1,6 +1,12 @@
-config.json
-node_modules/
-temp.js
+# IDE
 .vscode/
-.deployment
+
+# Build
 dist/
+
+# Depedencies
+node_modules/
+
+# Static
+.deployment
+config.json
