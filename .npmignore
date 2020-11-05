@@ -1,0 +1,14 @@
+# IDE
+.vscode/
+
+# Depedencies
+node_modules/
+
+# Sources
+src/
+
+# Static
+.deployment
+.gitignore
+config.json
+tsconfig.json

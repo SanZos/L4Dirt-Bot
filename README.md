@@ -11,17 +11,16 @@
 
 ## Requirements
 
-- discord.js
 - NodeJS 12+
 - Un token discord bot
 - Une clé openweather
 
 ## Installation
 
-Commencer par un `npm install` pour telecharger les modules du package.json.
+Commencer par un `yarn install` pour telecharger les modules du package.json.
 Puis créer un fichier config.json en respectant le format de config.dummy.json.
 
-**Attention à ne pas commit les tokens discord, et clés api**, n'oubliea pas que le dépot git est public.
+**Attention à ne pas commit les tokens discord, et clés api**, n'oubliez pas que le dépot git est public.
 
 ## Fonctions
 
@@ -44,23 +43,21 @@ Puis créer un fichier config.json en respectant le format de config.dummy.json.
 
 ## Utilisation
 
-Pour lancer le bot `npm run dev`, ou `node main.js`.
+Commencer par cloner le dépôt, installez les dépendances en tapant `yarn install`, puis faites un `yarn build`.
+
+Enfin pour lancer le bot `node dist/main.js`.
 
 ## Parsing des commandes
 
 Récupération du tableau du config.json:
 
 ```json
-"prefix": ["!", "?"],
+"prefix": ["!", "?"]
 ```
 
-Dans le main.js:
+Les préfix correspondent au premier caractère d'un message contenant une commande.
 
-```javascript
-for (const item of prefix) {
-    if (message.content.startsWith(item)) {
-        isACommand = true;
-        usedPrefix = item;
-    }
-}
+```markdown
+!macommande
+?macommande
 ```

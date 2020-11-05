@@ -1,27 +1,30 @@
 {
-	"name": "l4dirt-bot",
-	"version": "0.1.0",
-	"description": "The left4dirt-bot",
-	"engines": {
-		"node": "12.x"
-	},
-	"main": "main.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "node main.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Iuzziel/L4Dirt-Bot"
-	},
-	"author": "Iuzziel",
-	"license": "ISC",
-	"dependencies": {
-		"discord.js": "^12.4.1"
-	},
-	"keywords": [
-		"node",
-		"heroku",
-		"discordjs"
-	]
+    "name": "l4dirt-bot",
+    "version": "0.1.0",
+    "description": "The left4dirt-bot",
+    "engines": {
+        "node": "12.x"
+    },
+    "main": "dist/main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "yarn tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Iuzziel/L4Dirt-Bot"
+    },
+    "author": "Iuzziel",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^12.4.1"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.6",
+        "typescript": "^4.0.5"
+    },
+    "keywords": [
+        "node",
+        "discordjs"
+    ]
 }

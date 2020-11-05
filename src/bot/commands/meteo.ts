@@ -1,31 +1,31 @@
-module.exports = {
+import http from "http";
+
+import { Message, MessageEmbed } from "discord.js";
+import { ICommands } from ".";
+import { botConfig } from '../../config/bot';
+
+const meteo: ICommands = {
     name: 'meteo',
-    usage: '[command name] <Ville> <CodePays>',
-    description: 'Donne la météo courante',
+    usage: `${botConfig.prefix[0]}meteo <Ville>`,
+    description: 'Donne la météo courante dans la ville en argument (limité à la France pour le moment)',
     cooldown: 5,
-    execute(message, args) {
-        const http = require('http');
-        const config = require('../main').config;
-        const weatherApiKey = process.env.DISCORD_WEATHER_KEY ? process.env.DISCORD_WEATHER_KEY : config().weatherApiKey;
-        const apiKeyUrl = '&appid=' + weatherApiKey;
+    execute(message: Message, args: any) {
+        const apiKeyUrl = '&appid=' + botConfig.weatherApiKey;
 
         // api.openweathermap.org/data/2.5/weather?q={city name},{country code}
         const apiURlCity = 'http://api.openweathermap.org/data/2.5/weather?q=';
         // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}
-        const apiURlZip = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+        // const apiURlZip = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 
         let url = "";
-
-        if (args.length == 1) {
-            url = apiURlCity + args[0] + ",fr" + apiKeyUrl + "&units=metric";
-        } else if (args.length == 2) {
-            url = apiURlCity + args[0] + "," + args[1] + apiKeyUrl + "&units=metric";
+        if (args.length > 0) {
+            url = `${apiURlCity}${encodeURIComponent(args.join(' '))},fr${apiKeyUrl}&units=metric`;
         } else {
             message.channel.send(`Erreur dans la commande.`);
             return;
         }
 
-        function isValide(jsonResp) {
+        function isValide(jsonResp: { cod: number, name: string }) {
             if (jsonResp.cod
                 && jsonResp.cod == 200
                 && jsonResp.name) {
@@ -34,7 +34,7 @@ module.exports = {
             return false;
         }
 
-        function timeConverter(UNIX_timestamp) {
+        function timeConverter(UNIX_timestamp: number) {
             let dateConvert = new Date(UNIX_timestamp * 1000);
             let months = ['Jan', 'Fev', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             let year = dateConvert.getFullYear();
@@ -47,25 +47,19 @@ module.exports = {
             return time;
         }
 
-        const mydata = http.get(url, function (res) {
+        http.get(url, (res) => {
             let body = '';
-            res.on('data', function (chunk) {
+            res.on('data', (chunk) => {
                 body += chunk;
             });
-            res.on('end', function () {
+            res.on('end', () => {
                 let meteoResponse = JSON.parse(body);
-                // message.channel.send(`La météo de ${meteoResponse.name} indique une température de ${meteoResponse.main.temp}°C.`)
-
-                console.log(meteoResponse);
-                const Discord = require('discord.js');
-                let richResponse = new Discord.MessageEmbed();
+                let richResponse = new MessageEmbed();
 
                 if (isValide(meteoResponse)) {
                     richResponse.setTitle(meteoResponse.name);
-                    if (meteoResponse.dt) {
-                        let dateMeteo = timeConverter(meteoResponse.dt);
-                        richResponse.setDescription("Date de la mesure: " + dateMeteo);
-                    }
+                    if (meteoResponse.dt)
+                        richResponse.setDescription("Date de la mesure: " + timeConverter(meteoResponse.dt));
                     if (meteoResponse.main.temp)
                         richResponse.addField('Température', meteoResponse.main.temp + '°C', true);
                     if (meteoResponse.main.temp_max)
@@ -75,7 +69,7 @@ module.exports = {
                     if (meteoResponse.wind.speed)
                         richResponse.addField('Vent', meteoResponse.wind.speed + 'km/h, ' + meteoResponse.wind.deg + '°')
                     if (meteoResponse.clouds.all)
-                        richResponse.addField('Vent', meteoResponse.clouds.all + '%')
+                        richResponse.addField('Nuages', meteoResponse.clouds.all + '%')
                     if (meteoResponse.humidity)
                         richResponse.addField('Humidité', meteoResponse.humidity + '%')
                     if (meteoResponse.pressure)
@@ -87,10 +81,9 @@ module.exports = {
                     message.channel.send('Une erreur inconnue est survenue dans la requète à la météo.');
                 }
             });
-        });
-
-        mydata.on('error', function () {
+        }).on('error', () => {
             message.channel.send('Une erreur est survenue dans la requète à la météo.');
         });
     },
 };
+export default meteo;
